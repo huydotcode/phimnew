@@ -36,8 +36,6 @@ export const getSavedMoviesByUser = async (userId) => {
     }
   }
 
-  console.log("getSavedMoviesByUser", savedMovies);
-
   return savedMovies;
 };
 // Thêm phim đã lưu
@@ -51,7 +49,6 @@ export const addSavedMovie = async ({ userId, movieId }) => {
     );
     const existing = await getDocs(q);
     if (!existing.empty) {
-      console.log("Phim đã được lưu.");
       return null;
     }
 
@@ -73,10 +70,8 @@ export const addSavedMovie = async ({ userId, movieId }) => {
   }
 };
 export const deleteSavedMovie = async (savedMovieId) => {
-  console.log("savedMovieId", savedMovieId);
   try {
     await deleteDoc(doc(db, "saved_movies", savedMovieId));
-    console.log("Đã xóa phim khỏi danh sách lưu.");
   } catch (error) {
     console.error("Lỗi khi xóa phim đã lưu:", error);
   }

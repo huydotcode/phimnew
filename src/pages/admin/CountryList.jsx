@@ -144,7 +144,6 @@ const ModalEdit = ({ show, setShow, country }) => {
 
   const onSubmit = async (data) => {
     try {
-      console.log("cap nhat category", data);
 
       // await updateMovie(movieData.id, movieData);
       await updateCountry(country.id, {
@@ -235,7 +234,6 @@ const ModalDelete = ({ show, setShow, country }) => {
   const queryClient = useQueryClient();
   const onDelete = async () => {
     try {
-      console.log("Deleting country with ID:", country);
 
       await deleteCountry(country?.id);
       await queryClient.invalidateQueries({
@@ -301,7 +299,6 @@ const CountryList = () => {
   };
 
   const handleEditMovie = (country) => {
-    console.log("handleEditMovie", country);
     setEditState({
       id: country.id,
       name: country.name,

@@ -28,7 +28,6 @@ const UpdateInfo = () => {
   const inputRef = useRef(null);
 
   const onSubmit = async (data) => {
-    console.log("data", data);
     const value = data[editField];
 
     try {
@@ -37,6 +36,7 @@ const UpdateInfo = () => {
       toast.success(`Đã cập nhật ${editField} thành công!`);
       setEditField(null);
     } catch (error) {
+      console.error("Error updating user field:", error);
       toast.error("Lỗi khi cập nhật: " + error.message);
     }
   };
@@ -51,7 +51,7 @@ const UpdateInfo = () => {
       user.photoURL = photoURL;
       toast.success("Cập nhật ảnh đại diện thành công!");
     } catch (err) {
-      console.log(err);
+      console.error("Error updating avatar:", err);
       toast.error("Lỗi khi cập nhật ảnh đại diện");
     } finally {
       setUploading(false);

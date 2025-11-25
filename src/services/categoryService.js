@@ -135,10 +135,6 @@ export const addCategory = async (category) => {
 
 // Cập nhật thể loại
 export const updateCategory = async (categoryId, updatedData) => {
-  console.log({
-    categoryId,
-    updatedData,
-  });
   try {
     // Cập nhật thể loại trong Firestore
     const categoryRef = doc(
@@ -158,7 +154,6 @@ export const updateCategory = async (categoryId, updatedData) => {
 
 // Xóa thể loại
 export const deleteCategory = async (categoryId) => {
-  console.log("Deleting category with ID:", categoryId);
   try {
     const categoryRef = doc(
       db,

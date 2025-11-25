@@ -9,7 +9,8 @@ const ProtectedRoute = ({ redirectPath = "/login" }) => {
 
   if (loading) {
     return <div className="fixed inset-0 flex items-center justify-center z-[9999] h-full w-full bg-background">
-    ></div>
+      <Loading isLoading={loading} />
+    </div>
   }
 
   // Nếu user đã đăng nhập và cố truy cập /login, redirect về trang chính

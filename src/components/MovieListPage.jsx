@@ -38,7 +38,6 @@ const MovieListPage = ({
 
   useEffect(() => {
     if (lastVisible) {
-      console.log("currentPage", currentPage);
       setLastVisibleCache((prev) => ({
         ...prev,
         [currentPage]: lastVisible,

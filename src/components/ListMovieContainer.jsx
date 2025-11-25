@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Loading from "./Loading";
 import MovieCard from "./MovieCard";
 
@@ -14,10 +14,6 @@ const ListMovieContainer = ({
       console.error("Error loading movies:", error);
     }
   }, [error]);
-
-  useEffect(() => {
-    console.log("Is loading:", isLoading);
-  }, [isLoading]);
 
   if (isLoading) {
     return (

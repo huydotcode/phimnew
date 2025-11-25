@@ -171,8 +171,6 @@ const ModalDelete = ({ show, setShow, user }) => {
   const queryClient = useQueryClient();
   const onDelete = async () => {
     try {
-      console.log("Deleting user with ID:", user);
-
       await deleteUser(user?.user?.id);
       await queryClient.invalidateQueries({
         queryKey: ["allUsers"],

@@ -96,10 +96,6 @@ export const AuthProvider = ({ children }) => {
         password,
       );
 
-      console.log({
-        userCredential,
-      });
-
       if (userCredential) {
         const { uid, displayName, email, photoURL, phoneNumber } =
           userCredential.user;
@@ -159,7 +155,7 @@ export const AuthProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      console.log("Error logging in: ", error);
+      console.error("Error logging in: ", error);
       throw new Error("Đăng nhập thất bại!");
     }
   };
@@ -264,13 +260,11 @@ export const AuthProvider = ({ children }) => {
       const userDoc = await getDoc(userRef);
       if (userDoc.exists()) {
         // Nếu người dùng đã tồn tại, không cần tạo mới
-        console.log("User already exists in Firestore:", userDoc.data());
 
 
 
       } else {
         // Nếu người dùng chưa tồn tại, tạo mới
-        console.log("Creating new user in Firestore");
 
         await setDoc(
           userRef,
@@ -313,12 +307,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("User state changed:", user);
   }, [user]);
-
-  useEffect(() => {
-    console.log("Loading state changed:", loading);
-  }, [loading]);
 
   return (
     <AuthContext.Provider

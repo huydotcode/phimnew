@@ -22,7 +22,6 @@ const LoginPage = () => {
   );
 
   const navigate = useNavigate();
-  const [openLogin, setOpenLogin] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const {
     user,
@@ -65,7 +64,7 @@ const LoginPage = () => {
       toast("Tài khoản demo đã được điền sẵn vào form");
 
     } catch (error) {
-      console.log(error)
+      console.error("Error logging in with demo account:", error);
       toast.error("Đăng nhập tài khoản demo thất bại");
     }
   };
@@ -77,12 +76,11 @@ const LoginPage = () => {
       const result = await loginWithEmailPassword(email, password);
 
       if (result) {
-        setOpenLogin(false);
         toast.success("Đăng nhập thành công!");
         navigate("/");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error logging in:", error);
       setError("root", {
         message: "Đăng nhập thất bại",
       });
@@ -118,11 +116,10 @@ const LoginPage = () => {
       if (result) {
         toast.success("Đăng ký thành công!");
         navigate("/login");
-        setOpenLogin(false);
         setIsLogin(true);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error signing up:", error);
       toast.error("Đăng ký thất bại!");
     }
   };
@@ -132,9 +129,8 @@ const LoginPage = () => {
       await loginWithGoogle();
       toast.success("Đăng nhập bằng Google thành công!");
       navigate("/");
-      setOpenLogin(false);
     } catch (error) {
-      console.log(error);
+      console.error("Error logging in with Google:", error);
       toast.error("Đăng nhập bằng Google thất bại!");
     }
   };

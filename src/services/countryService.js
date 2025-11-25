@@ -1,5 +1,4 @@
 import {
-  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -10,8 +9,8 @@ import {
   startAfter,
   where,
 } from "firebase/firestore";
-import { db } from "../app/firebase";
 import mongoose from "mongoose";
+import { db } from "../app/firebase";
 
 const PAGE_SIZE = 20; // Số lượng phim hiển thị trên mỗi trang
 
@@ -85,7 +84,7 @@ export const addCountry = async (country) => {
       ...country,
       id: countryId, // Thêm ID vào đối tượng quốc gia
     };
-    console.log("newCountry", newCountry);
+
     const docRef = doc(db, "countries", newCountry.id);
 
     await setDoc(docRef, newCountry); // Thêm quốc gia vào Firestore
@@ -110,7 +109,6 @@ export const deleteCountry = async (countryId) => {
     const docRef = doc(db, "countries", countryId);
 
     await deleteDoc(docRef); // Xóa quốc gia khỏi Firestore
-    console.log("Country deleted successfully:", countryId);
   } catch (error) {
     console.error("Error deleting country:", error);
   }

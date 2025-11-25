@@ -47,14 +47,6 @@ export const getSerieMovies = async (page, lastVisible = null) => {
 
     const totalPages = Math.ceil(totalCount / pageSize);
 
-    console.log("getSerieMovies:", {
-      page,
-      movies: snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
-      lastVisible: newLastVisible,
-      totalCount,
-      totalPages,
-    });
-
     // Trả về danh sách phim và document cuối cùng
     return {
       movies: snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })),

@@ -90,7 +90,7 @@ export const CommentForm = ({ movieId, isCommented = false }) => {
 
       form.reset();
     } catch (error) {
-      console.log(error);
+      console.error("Error adding comment:", error);
       toast.error("Có lỗi xảy ra trong quá trình gửi bình luận!");
     }
   };

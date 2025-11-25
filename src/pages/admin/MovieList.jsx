@@ -62,10 +62,6 @@ const ModalAdd = ({ show, setShow, loadFirstPage }) => {
         }),
       };
 
-      console.log("ADDMOVIE", {
-        movieData,
-      });
-
       await addMovie(movieData);
       toast("Thêm phim thành công");
     } catch (error) {
@@ -333,10 +329,6 @@ const ModalEdit = ({ show, setShow, movie, loadFirstPage }) => {
   const { data: countries } = useAllCountries({ enable: true });
 
   useEffect(() => {
-    console.log("Movie data:", movie);
-  }, [movie]); // Log movie data when it changes
-
-  useEffect(() => {
     if (movie) {
       reset({
         ...movie,
@@ -383,10 +375,6 @@ const ModalEdit = ({ show, setShow, movie, loadFirstPage }) => {
         }),
       };
 
-      console.log("UPDATE", {
-        moviesLang,
-      });
-
       await updateMovie(movieData.id, movieData);
       toast("Cập nhật phim thành công");
     } catch (error) {
@@ -395,7 +383,7 @@ const ModalEdit = ({ show, setShow, movie, loadFirstPage }) => {
     } finally {
       setShow(false); // Đóng modal sau khi cập nhật
       reset(); // Reset form
-      loadFirstPage(); // Tải lại danh sách phim`
+      loadFirstPage(); // Tải lại danh sách phim
     }
   };
 
@@ -876,9 +864,8 @@ const MovieList = () => {
 
           <button
             onClick={() => setShowFilter((prev) => !prev)}
-            className={`text-sm text-white px-8 py-2 rounded ${
-              showFilter ? "bg-primary" : "bg-secondary"
-            }`}
+            className={`text-sm text-white px-8 py-2 rounded ${showFilter ? "bg-primary" : "bg-secondary"
+              }`}
           >
             <Icons.Filter className="w-4 h-4" />
           </button>

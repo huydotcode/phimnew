@@ -15,7 +15,6 @@ import {
 } from "firebase/firestore";
 import mongoose from "mongoose";
 import { db } from "../app/firebase";
-import { signOut } from "firebase/auth";
 import { moviesSort } from "../data/movies_sort";
 
 // Lấy phim theo slug thông tin phim
@@ -41,8 +40,6 @@ export const getEpsicodesBySlug = async (slug) => {
       console.error("No episodes found for this movie:", slug);
       return []; // Hoặc có thể ném lỗi tùy ý
     }
-
-    console.log("getEpsicodesBySlug: ", data?.episodes);
 
     return data?.episodes[0];
   } catch (error) {
@@ -83,7 +80,6 @@ export const getSuggestionMovies = async (uid) => {
 
 // Danh sách phim mới năm nay và có view nhiều nhất
 export const getTopNewMovies = async (limitMovie = 10) => {
-  console.log("getTopNewMovies");
   const currentYear = new Date().getFullYear();
   try {
     const q = query(
@@ -95,10 +91,6 @@ export const getTopNewMovies = async (limitMovie = 10) => {
     );
 
     const snapshot = await getDocs(q);
-
-    console.log({
-      data: snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
-    });
 
     return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
@@ -334,18 +326,10 @@ export const fetchNextPage = async (lastVisible, pageSize = 10) => {
 
 export const searchMovies = async ({
   searchTerm = "",
-  page = 1,
   filters = {},
   lastVisible = null,
   pageSize = 10,
 }) => {
-  console.log("SEARCH MOVIES: ", {
-    searchTerm,
-    page,
-    filters,
-    lastVisible,
-    pageSize,
-  });
   try {
     const movieRef = collection(db, "movies");
 
@@ -353,7 +337,6 @@ export const searchMovies = async ({
 
     // Tìm kiếm theo tên (dạng lowercase)
     if (searchTerm && searchTerm.trim() !== "") {
-      console.log("searchTerm: ", searchTerm);
       const termLower = searchTerm.toLowerCase();
       constraints.push(
         where("name_lowercase", ">=", termLower),
@@ -367,10 +350,6 @@ export const searchMovies = async ({
       filters?.category.length > 0 &&
       filters?.country.length > 0
     ) {
-      console.log("filter category and country: ", {
-        category: filters.category,
-        country: filters.country,
-      });
       const categoryCountrySlugs = [...filters.category, ...filters.country];
 
       constraints.push(
@@ -392,7 +371,6 @@ export const searchMovies = async ({
 
     // Lọc theo type
     if (filters?.type && filters?.type.length > 0) {
-      console.log("filters.type: ", filters.type);
       constraints.push(where("type", "in", filters.type));
     }
 
@@ -455,13 +433,6 @@ export const searchMovies = async ({
     const snapshot = await getCountFromServer(countQuery);
     const totalCount = snapshot.data().count;
 
-    console.log({
-      movies,
-      lastVisible: querySnapshot.docs[querySnapshot.docs.length - 1],
-      totalMovies: totalCount,
-      totalPages: Math.ceil(totalCount / pageSize),
-    });
-
     return {
       movies,
       lastVisible: querySnapshot.docs[querySnapshot.docs.length - 1],
@@ -493,7 +464,6 @@ export const addMovie = async ({
     },
   ],
   countrySlugs = ["chua-cap-nhat"],
-  createdTime = new Date().toISOString,
   director = [
     {
       name: "Chưa cập nhật",
@@ -532,38 +502,6 @@ export const addMovie = async ({
   view = 0,
   year = new Date().getFullYear(),
 }) => {
-  console.log("ADD MOVIE: ", {
-    actor,
-    category,
-    categorySlugs,
-    chieurap,
-    content,
-    country,
-    countrySlugs,
-    createdTime,
-    director,
-    episode_current,
-    episode_total,
-    imdb,
-    is_copyright,
-    lang,
-    name,
-    notify,
-    origin_name,
-    poster_url,
-    quality,
-    showtimes,
-    slug,
-    status,
-    sub_docquyen,
-    thumb_url,
-    time,
-    tmdb,
-    trailer_url,
-    type,
-    view,
-    year,
-  });
   try {
     const newObjectId = new mongoose.Types.ObjectId();
     const movieId = newObjectId.toString(); // Chuyển đổi ObjectId thành chuỗi
@@ -626,7 +564,6 @@ export async function updateMovie(id, updatedData) {
       name_lowercase: updatedData.name?.toLowerCase() || "", // đảm bảo đồng bộ field này
     });
 
-    console.log("Cập nhật phim thành công");
     return true;
   } catch (error) {
     console.error("Lỗi khi cập nhật phim:", error);
@@ -638,7 +575,6 @@ export const deleteMovie = async (id) => {
   try {
     const movieRef = doc(db, "movies", id);
     await deleteDoc(movieRef);
-    console.log("Xóa phim thành công");
   } catch (error) {
     console.error("Lỗi khi xóa phim:", error);
     throw error;
@@ -654,8 +590,6 @@ export const countMoviesWithoutCategoryCountrySlugs = async () => {
 
     const snapshot = await getCountFromServer(q);
     const count = snapshot.data().count;
-
-    console.log("Số lượng phim không có categoryCountrySlugs:", count);
 
     return count;
   } catch (error) {

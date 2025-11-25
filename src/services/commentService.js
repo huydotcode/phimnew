@@ -82,9 +82,6 @@ export const likeComment = async (userId, commentId) => {
         like_count: currentLikeCount + 1,
         likedby: [...(commentSnap.data().likedby || []), userId],
       });
-      console.log("Comment liked successfully");
-    } else {
-      console.log("No such document!");
     }
   } catch (error) {
     console.error("Error liking comment: ", error);
@@ -95,7 +92,6 @@ export const deleteComment = async (commentId) => {
   try {
     const commentRef = doc(db, "comments", commentId);
     await deleteDoc(commentRef);
-    console.log("Comment deleted successfully");
   } catch (error) {
     console.error("Error deleting comment: ", error);
   }

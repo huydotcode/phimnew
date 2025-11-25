@@ -26,10 +26,6 @@ const FavoriteMovies = () => {
     fetchFavorites();
   }, [user, refresh]);
 
-  useEffect(() => {
-    console.log("Favorites:", favorites);
-  }, [favorites]);
-
   // Xử lý bỏ yêu thích
   const handleUnfavorite = async (movieId) => {
     if (!movieId || !user?.uid) {

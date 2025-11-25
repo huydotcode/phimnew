@@ -23,7 +23,7 @@ export const useCountryMovies = (countrySlug, page) => {
   return useQuery({
     queryKey: ["moviesByCountry", countrySlug, page],
     queryFn: () => getMoviesByCountry(countrySlug, page),
-    keepPreviousData: true, // Giữ dữ liệu trang trước khi tải trang mới
-    staleTime: 5 * 60 * 1000, // Cache 5 phút
+    // keepPreviousData: true, // Giữ dữ liệu trang trước khi tải trang mới
+    // staleTime: 5 * 60 * 1000, // Cache 5 phút
   });
 };

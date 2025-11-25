@@ -21,7 +21,6 @@ export const addFavorite = async ({ userId, movie }) => {
   const exists = await getDocs(q);
 
   if (!exists.empty) {
-    console.log("Phim đã có trong yêu thích.");
     return null;
   }
 
@@ -31,8 +30,6 @@ export const addFavorite = async ({ userId, movie }) => {
     movie_data: movie, // lưu toàn bộ data để tiện hiển thị
     created_at: new Date(),
   });
-
-  console.log("addFavorite", docRef.id);
 
   return {
     id: docRef.id, // ID tài liệu
@@ -47,8 +44,6 @@ export const getFavoritesByUser = async (userId) => {
   const favRef = collection(db, "favorites");
   const q = query(favRef, where("user_id", "==", userId));
   const snapshot = await getDocs(q);
-
-  console.log("getFavoritesByUser", snapshot.docs.length);
 
   return snapshot.docs.map((doc) => {
     const data = doc.data();
@@ -65,7 +60,6 @@ export const removeFavorite = async (favoriteDocId) => {
   try {
     // Sử dụng đúng ID của tài liệu Firestore để xóa
     await deleteDoc(doc(db, "favorites", favoriteDocId));
-    console.log("Đã xóa phim khỏi danh sách yêu thích.");
   } catch (error) {
     console.error("Lỗi khi xóa phim khỏi danh sách yêu thích:", error);
   }

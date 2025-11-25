@@ -6,13 +6,12 @@ import { useAllCategories } from "../../hooks/useCategory";
 import { useQueryClient } from "@tanstack/react-query";
 import { IoAddOutline } from "react-icons/io5";
 import { toast } from "sonner";
+import Icons from "../../components/Icons";
 import {
   addCategory,
   deleteCategory,
   updateCategory,
 } from "../../services/categoryService";
-import Icons from "../../components/Icons";
-import { addCountry } from "../../services/countryService";
 
 const PAGE_SIZE = 10;
 
@@ -141,7 +140,6 @@ const ModalEdit = ({ show, setShow, category }) => {
 
   const onSubmit = async (data) => {
     try {
-      console.log("cap nhat category", data);
 
       // await updateMovie(movieData.id, movieData);
       await updateCategory(category.id, {
@@ -255,7 +253,6 @@ const ModalDelete = ({ show, setShow, category }) => {
   const queryClient = useQueryClient();
   const onDelete = async () => {
     try {
-      console.log("Deleting category with ID:", category);
 
       await deleteCategory(category?.category?.id);
       await queryClient.invalidateQueries({
@@ -321,7 +318,6 @@ const CategoryList = () => {
   };
 
   const handleEditMovie = (category) => {
-    console.log("handleEditMovie", category);
     setEditState({
       id: category.id,
       name: category.name,

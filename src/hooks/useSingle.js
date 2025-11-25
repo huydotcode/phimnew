@@ -9,7 +9,5 @@ export const useSingleMovies = (page) => {
   return useQuery({
     queryKey: ["singleMovies", page],
     queryFn: () => getSingleMovies(page),
-    keepPreviousData: true, // Giữ dữ liệu trang trước khi tải trang mới
-    staleTime: 5 * 60 * 1000, // Cache 5 phút
   });
 };

@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { connectAuthEmulator, getAuth } from "firebase/auth";
-import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 import { getRemoteConfig } from "firebase/remote-config";
 import { getStorage } from "firebase/storage";
 
@@ -19,14 +19,5 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app, "gs://handbook-65d51.appspot.com");
 const remoteConfig = getRemoteConfig(app);
-remoteConfig.settings.minimumFetchIntervalMillis = 0; // Không cache
 
-// Nếu sử dụng emulator, bỏ comment các dòng dưới đây
-if (window.location.hostname === "localhost") {
-  connectFirestoreEmulator(db, "localhost", 8080);
-}
-if (window.location.hostname === "localhost") {
-  connectAuthEmulator(auth, "http://localhost:9099");
-}
-
-export { auth, db, storage, remoteConfig };
+export { auth, db, remoteConfig, storage };

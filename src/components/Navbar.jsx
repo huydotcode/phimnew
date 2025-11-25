@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { Dropdown, Modal } from "antd";
 import { signOut } from "firebase/auth";
 import { AnimatePresence, motion } from "framer-motion";
@@ -16,12 +15,12 @@ import { useAllCategories } from "../hooks/useCategory";
 import useClickOutSide from "../hooks/useClickOutSide";
 import { useAllCountries } from "../hooks/useCountry";
 import { useDebounce } from "../hooks/useDebounce";
+import { useAllNotifications } from "../hooks/useNotification";
 import { useSearchMovies } from "../hooks/useSearchMovie";
 import { convertTime } from "../utils/convertTime";
 import Icons from "./Icons";
 import Loading from "./Loading";
 import Button from "./ui/Button";
-import { useAllNotifications } from "../hooks/useNotification";
 const navUserItems = (displayName) => [
   {
     key: "display-name",
@@ -124,9 +123,8 @@ const Navbar = () => {
             return (
               <li
                 key={index}
-                className={`ml-4 w-full text-sm font-bold hover:text-primary transition-all duration-200 text-nowrap ${
-                  item.link === location.pathname ? "text-primary" : ""
-                }`}
+                className={`ml-4 w-full text-sm font-bold hover:text-primary transition-all duration-200 text-nowrap ${item.link === location.pathname ? "text-primary" : ""
+                  }`}
               >
                 <Link to={item.link}>{item.name}</Link>
               </li>
@@ -255,7 +253,7 @@ const NavbarLogin = () => {
         setIsLogin(true);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error signing up:", error);
       toast.error("Đăng ký thất bại!");
     }
   };
@@ -266,7 +264,7 @@ const NavbarLogin = () => {
       toast.success("Đăng nhập bằng Google thành công!");
       setOpenLogin(false);
     } catch (error) {
-      console.log(error);
+      console.error("Error logging in with Google:", error);
       toast.error("Đăng nhập bằng Google thất bại!");
     }
   };
@@ -727,9 +725,8 @@ const NavbarMobile = () => {
                 return (
                   <li
                     key={index}
-                    className={`ml-4 text-xl w-full font-bold hover:text-primary transition-all duration-200 @max-5xl:py-4 @max-5xl:pl-10 @max-5xl:hover:scale-100 cursor-pointer ${
-                      item.link === location.pathname ? "text-primary" : ""
-                    }`}
+                    className={`ml-4 text-xl w-full font-bold hover:text-primary transition-all duration-200 @max-5xl:py-4 @max-5xl:pl-10 @max-5xl:hover:scale-100 cursor-pointer ${item.link === location.pathname ? "text-primary" : ""
+                      }`}
                   >
                     <Link to={item.link}>{item.name}</Link>
                   </li>
@@ -761,15 +758,13 @@ const NavItemDropDown = ({ item, subItems, isMobile = false }) => {
 
   return (
     <li
-      className={`w-full relative ml-4 text-sm font-bold transition-all duration-200 @max-5xl:py-4 cursor-pointer text-nowrap ${
-        isMobile && "text-xl"
-      }`}
+      className={`w-full relative ml-4 text-sm font-bold transition-all duration-200 @max-5xl:py-4 cursor-pointer text-nowrap ${isMobile && "text-xl"
+        }`}
       ref={wrapperRef}
     >
       <button
-        className={`cursor-pointer focus:outline-none hover:text-primary ${location.pathname.includes(item.link) ? "text-primary" : ""} ${
-          isMobile ? "w-full text-left pl-10" : ""
-        }`}
+        className={`cursor-pointer focus:outline-none hover:text-primary ${location.pathname.includes(item.link) ? "text-primary" : ""} ${isMobile ? "w-full text-left pl-10" : ""
+          }`}
         onClick={() => setIsOpen((prev) => !prev)}
       >
         {item.name} <Icons.ChevronDown className="w-3 h-3 inline-block" />
@@ -777,11 +772,10 @@ const NavItemDropDown = ({ item, subItems, isMobile = false }) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className={`absolute ${
-              isMobile
-                ? "relative ml-4 w-full left-0 top-0 mt-2 bg-black rounded-none shadow-none"
-                : "top-full -left-40 mt-2 bg-foreground rounded-md shadow-lg w-[500px]"
-            } grid grid-cols-2 md:grid-cols-4 xl:grid-cols-3 py-1 overflow-hidden z-50`}
+            className={`absolute ${isMobile
+              ? "relative ml-4 w-full left-0 top-0 mt-2 bg-black rounded-none shadow-none"
+              : "top-full -left-40 mt-2 bg-foreground rounded-md shadow-lg w-[500px]"
+              } grid grid-cols-2 md:grid-cols-4 xl:grid-cols-3 py-1 overflow-hidden z-50`}
             initial={{ height: 0 }}
             animate={{
               height: "auto",
@@ -794,13 +788,11 @@ const NavItemDropDown = ({ item, subItems, isMobile = false }) => {
                 <Link
                   key={subItem.slug}
                   to={`${item.link}/${subItem.slug}`}
-                  className={`py-2 hover:text-primary ${
-                    isMobile ? "pl-10" : "px-4"
-                  } ${
-                    location.pathname.includes(
+                  className={`py-2 hover:text-primary ${isMobile ? "pl-10" : "px-4"
+                    } ${location.pathname.includes(
                       `${item.link}/${subItem.slug}`,
                     ) && "text-primary"
-                  }`}
+                    }`}
                   onClick={() => handleCategorySelect(subItem.slug)}
                 >
                   {subItem.name}

@@ -2,7 +2,6 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDoc,
   getDocs,
   query,
   setDoc,
@@ -15,12 +14,6 @@ import { db } from "../app/firebase";
 export const addWatchedMovie = async ({ userId, movie, currentEpisode }) => {
   const docId = `${userId}_${movie._id}_${currentEpisode}`;
   const docRef = doc(db, "watched_movies", docId);
-
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    console.log("Phim đã xem trước đó.");
-    // return;
-  }
 
   await setDoc(docRef, {
     user_id: userId,

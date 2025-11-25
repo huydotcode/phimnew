@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { moviesSort } from "../data/movies_sort";
 import { moviesType } from "../data/movies_type";
@@ -18,11 +18,7 @@ const DEFAULT_FILTERS = {
 };
 
 // Reusable Components
-const FilterSection = ({ title, items, selected, onChange, onClear, isSort = false }) => (
-  useEffect(() => {
-    console.log("selected",);
-  }, [selected]),
-
+export const FilterSection = ({ title, items, selected, onChange, onClear, isSort = false }) => (
   <div className="flex items-start mb-3">
     <h3 className="text-white font-semibold mb-1 min-w-[120px]">{title}:</h3>
     <div className="flex flex-wrap gap-2">
@@ -38,7 +34,6 @@ const FilterSection = ({ title, items, selected, onChange, onClear, isSort = fal
               : "text-white"
             }`}
           onClick={() => {
-            console.log(isSort ? item.slug || item : item.slug || item);
             onChange(isSort ? item.slug || item : item.slug || item)
           }}
         >
@@ -75,7 +70,6 @@ const FilterPanel_2 = ({
 
   // Handle filter changes
   const handleFilterChange = (key, value) => {
-    console.log("Filter changed: ", key, value);
     setCurrentFilters((prev) => ({
       ...prev,
       [key]: key === "sort" ? value : prev[key].includes(value)

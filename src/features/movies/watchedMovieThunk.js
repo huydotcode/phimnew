@@ -20,7 +20,6 @@ export const addWatchedMovieThunk = createAsyncThunk(
   "movies/addWatchedMovieThunk",
   async ({ uid, movie, currentEpisode }, { rejectWithValue }) => {
     try {
-      console.log("addWatchedMovieThunk");
       const data = await addWatchedMovie({
         movie,
         userId: uid,
@@ -29,8 +28,6 @@ export const addWatchedMovieThunk = createAsyncThunk(
       if (!data) {
         return null;
       }
-
-      console.log("NEW WATCHED MOVIE", data);
 
       return data;
     } catch (error) {

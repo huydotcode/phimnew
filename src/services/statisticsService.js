@@ -19,7 +19,6 @@ export const getStatistics = async () => {
   }));
 
   if (data.length === 0) {
-    console.log("No statistics data found.");
     return null;
   }
 
@@ -43,7 +42,7 @@ export async function countMoviesByField(field) {
   const limitedCounts = sortedCounts.slice(0, limit);
   const othersCount = sortedCounts
     .slice(limit)
-    .reduce((acc, [_, count]) => acc + count, 0);
+    .reduce((acc, [, count]) => acc + count, 0);
   const limitedCountsObj = Object.fromEntries(limitedCounts);
   limitedCountsObj["Khác"] = othersCount; // Thêm mục "Khác" với tổng số lượng còn lại
 
@@ -178,7 +177,7 @@ export const getTopViewedCategories = async (topN) => {
   const limitedCounts = sortedCounts.slice(0, topN);
   const othersCount = sortedCounts
     .slice(topN)
-    .reduce((acc, [_, count]) => acc + count, 0);
+    .reduce((acc, [, count]) => acc + count, 0);
 
   const limitedCountsObj = Object.fromEntries(limitedCounts);
   if (othersCount > 0) {

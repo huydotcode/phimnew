@@ -12,7 +12,6 @@ const useFetch = ({ initData = [], fetchDataFn = () => {} }) => {
       setLoading(true);
       try {
         const response = await fetchDataFn();
-        console.log({ response });
         setData(response);
       } catch (error) {
         setError(error);
