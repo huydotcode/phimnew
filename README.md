@@ -322,7 +322,7 @@ npm run emulators
 
 ## 👨‍💻 Tác Giả
 
-**Huy Do** - [ngonhuthuy1234@gmail.com](mailto:ngonhuthuy1234@gmail.com)
+**Huy Ngo** - [ngonhuthuy1234@gmail.com](mailto:ngonhuthuy1234@gmail.com)
 
 ---
 
