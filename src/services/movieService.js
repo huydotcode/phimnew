@@ -92,6 +92,21 @@ export const getTopNewMovies = async (limitMovie = 10) => {
 
     const snapshot = await getDocs(q);
 
+    // Check if
+    if (snapshot.empty || snapshot.size < limitMovie) {
+      const q = query(
+        collection(db, "movies"),
+        where("year", "==", currentYear - 1),
+        where("tmdb.vote_average", ">=", 7),
+        where("view", ">=", 500),
+        limit(limitMovie),
+      );
+
+      const snapshot = await getDocs(q);
+
+      return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    }
+
     return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     console.error("Error fetching new movies:", error);
